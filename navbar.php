@@ -61,6 +61,9 @@
             </li>
             <li class="nav-item">
             <a class="nav-link" href="./payment.php">Payments</a>
+            </li>    
+            <li class="nav-item">
+            <a class="nav-link" href="./status.php">Status</a>
             </li>          
         </ul>
         <form action="./cart.php" class="form-inline my-2 my-lg-0">

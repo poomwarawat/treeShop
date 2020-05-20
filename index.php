@@ -3,6 +3,7 @@
     <?php
         session_start();
         $_SESSION['username'] = "poomwarawat";
+        $_SESSION['test'] = [1,2,3,4,5];
     ?>
   <head>
     <meta charset="UTF-8" />
@@ -86,9 +87,8 @@
             class="d-block w-100 slide-image image-box"
             alt="..."
           />
-          <div class="centered">
-            <h1>Welcome</h1>
-            <p>ยินดีต้อนรับ</p>
+          <div class="centered">            
+            <p>ต้นไม้ 1 ต้น สามารถผลิตออกซิเจนได้ 118 กิโลกรัมต่อปี ซึ่งเพียงพอสำหรับคน 2 คนใช้ได้ทั้งปี</p>
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@
       </a>
     </div>
 
-    <!-- footer -->
+    <!-- footer -->    
     <div class="footer-home">
       <div class="contact-text">
         <h3>Contact</h3>

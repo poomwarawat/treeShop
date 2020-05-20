@@ -115,6 +115,14 @@ body {
   width: 100%;
   height: 300px;
 }
+.address-area {
+  border: 2px solid rgb(211, 134, 62);
+  padding: 10px;
+  width: 100%;
+}
+.address-area h3 {
+  text-decoration: underline;
+}
 .product-number {
   margin-top: 8px;
   margin-left: 10px;
@@ -137,6 +145,15 @@ body {
   text-decoration: none;
 }
 @media (max-width: 858px) {
+  .footer-home > div {
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  .footer-home > .contact-text {
+    margin-top: 10px;
+    width: 100%;
+  }
   .cart-product {
     margin-top: 30px;
     padding: 20px;
