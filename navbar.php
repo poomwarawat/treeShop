@@ -34,7 +34,10 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Happy Tree Friends</a>
+        <a class="navbar-brand" href="./index.php">
+            <img src="./img/logo.jpg" width="50px" height="50px">
+            Happy Tree Friends
+        </a>
         <button
         class="navbar-toggler"
         type="button"
@@ -47,7 +50,7 @@
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
             <a class="nav-link" href="./index.php"
                 >Home <span class="sr-only">(current)</span></a
@@ -57,9 +60,14 @@
             <a class="nav-link" href="./category.php?type=A">Category</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="./payment.html">Payments</a>
+            <a class="nav-link" href="./payment.php">Payments</a>
             </li>          
         </ul>
+        <form action="./cart.php" class="form-inline my-2 my-lg-0">
+            <button type="submit" class="cart-btn">
+                <img src="./img/cart.png" width="50px" height="50px">
+            </button>
+        </form>
         </div>
     </nav>
 </body>

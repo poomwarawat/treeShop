@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
     include "./conn.php";
-    $productID = $_GET['id'];    
+    $productID = $_GET['id'];  
 ?>
 <html lang="en">
   <head>
@@ -34,6 +34,7 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
+    <script src="./cart.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -51,6 +52,23 @@
       </div>
     </div>
 
+    <?php
+        if($_GET['addcart'] == 1){
+    ?>
+
+    <div class="cart-alert">
+        <div class="alert alert-success w-100" id="alertcart">Add to carted</div>
+    </div>
+    <script>
+          const alert = document.getElementById("alertcart");
+          setTimeout(() => {
+            alert.style.display = "none"                
+            }, 2000);
+    </script>
+    <?php
+    }
+    ?>
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
     <div class="container">
       <div class="row detail-product">
         <div class="col-sm-7 col-12">
@@ -108,12 +126,29 @@
               </div>
               <div class="mt-3">
                 <p>ราคา : <span><?php echo $row['price']?> บาท</span></p>
-              </div>
-              <div class="mt-3">
-                <p>สถานะ : <span>มาซื้อไอ้สัส</span></p>
-              </div>
+              </div>              
               <div class="mt-3">
                 <p>ลงสินค้า : <span><?php echo $row['created']?></span></p>
+              </div>              
+              <div>                  
+                  <form action="./productdatabase.php?productID=<?php echo $productID?>&price=<?php echo $row['price']?>" method="POST">
+                  <div>
+                    <h3>จำนวน</h3>
+                    <select name="total" class="form-control">                        
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                  </div>
+                    <button class="btn btn-primary w-100 mt-2">ใส่ตระกร้า</button>
+                  </form>
               </div>
             </div>
           </div>
@@ -122,19 +157,13 @@
           <div class="detail1">
             <h5>รายละเอียดสินค้า</h5>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              corporis natus, labore, quae ab distinctio quo deserunt,
-              reprehenderit maxime unde molestias voluptatum fugit repellendus.
-              Placeat vero debitis nemo consectetur dolorum?
+              <?php echo $row['des1']?>
             </p>
           </div>
           <div class="detail2">
             <h5>เคล็ดลับ</h5>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-              sint amet veniam beatae, similique et ipsa aliquid voluptas vel
-              accusamus quia deserunt quae aspernatur alias aut necessitatibus
-              eos facilis ratione.
+            <?php echo $row['des2']?>
             </p>
           </div>
         </div>

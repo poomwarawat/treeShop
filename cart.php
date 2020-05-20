@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+    include "./conn.php";
+    $username = $_SESSION['username'];
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,7 +34,7 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
-    ></script>
+    ></script>    
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -48,44 +53,53 @@
     </div>
 
     <div class="container">
+        <?php
+            $productCount = 0;
+            $itemCount = 0;
+            $TotalAllPrice = 0;
+            $sql = "SELECT * FROM cart INNER JOIN product ON cart.productID=product.id WHERE cart.username='$username'";
+            $result = mysqli_query($conn, $sql);
+            $result_check = mysqli_num_rows($result);
+            if($result_check > 0){
+                while($row = mysqli_fetch_assoc($result)){
+                    $productCount += $row['total'];
+                    $TotalAllPrice += $row['totalPrice'];
+            
+        ?>
       <div class="row cart-product detail-product">
         <div class="col-sm-3 col-12">
           <h3>รูปสินค้า</h3>
           <img
             class="cart-product-image"
-            src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            src="./img/A/<?php echo $row['pic1']?>"
           />
           <div class="alert alert-primary mt-2 text-center">
-            ดอกไม้
+            <?php echo $row['name']?>
           </div>
         </div>
         <div class="col-sm-3 col-12">
-          <h3>รูปสินค้า</h3>
+          <h3>ราคาต่อชิ้น</h3>
           <div class="alert alert-secondary w-100">
-            550 บาท
+            <?php echo $row['price']?> บาท
           </div>
         </div>
         <div class="col-sm-3 col-12">
-          <h3>จำนวน</h3>
-          <div class="row">
-            <div class="col-sm-3 col-3 mt-2">
-              <button class="btn btn-primary">-</button>
+            <h3>จำนวน</h3>
+            <div class="alert alert-secondary">
+            <?php echo $row['total']?> ชิ้น
             </div>
-            <div class="col-sm-3 col-3 mt-2">
-              <p class="product-number">2</p>
-            </div>
-            <div class="col-sm-3 col-3 mt-2">
-              <button class="btn btn-primary">+</button>
-            </div>
-          </div>
         </div>
         <div class="col-sm-3 col-12">
           <h3>ราคารวม</h3>
           <div class="alert alert-secondary">
-            1100 บาท
+          <?php echo $row['totalPrice']?> บาท
           </div>
         </div>
       </div>
+      <?php
+          }
+        }
+      ?>
     </div>
 
     <div class="container">
@@ -95,10 +109,10 @@
             <h3>สรุปรายการสินค้า</h3>
           </div>
           <div class="col-sm-2 col-12">
-            <p class="mt-2">1 รายการ 2 ชิ้น</p>
+            <p class="mt-2"><?php echo $productCount?> ชิ้น</p>
           </div>
           <div class="col-sm-4 col-12">
-            <p class="mt-2">ราคาทั้งหมด 1100 บาท</p>
+            <p class="mt-2"><?php echo $TotalAllPrice?> บาท</p>
           </div>
         </div>
       </div>
@@ -106,7 +120,9 @@
 
     <div class="request-access">
       <div class="p-2">
-        <button class="btn btn-danger w-100 ml-1">ยกเลิก</button>
+        <form action="./clearcartdata.php" method="POST">
+            <button type="submit" class="btn btn-danger w-100 ml-1">ยกเลิก</button>
+        </form>
       </div>
       <div class="p-2">
         <button class="btn btn-primary w-100 ml-1">สั่งซื้อ</button>

@@ -67,4 +67,28 @@
     //     }
     //     fclose($handle);
     // }
+    
+    // $count = 192;
+    // if (($handle = fopen("./csv/data2.csv", "r")) !== FALSE) {
+    //     while (($data = fgetcsv($handle, 100000, ",")) !== FALSE) {
+    //         if($count > 192){
+    //             echo $data[0];                                
+                
+    //             echo '<br>';                   
+    //             echo "--------------------------------------------------------------------------------------------------------------------------------------------";                
+    //             echo '<br>';                          
+
+    //             $sql = "UPDATE product SET des1='$data[0]', des2='$data[1]' WHERE id='$count'";
+    //             if(mysqli_query($conn, $sql)){                
+    //                 echo "Add $row[0] to database is success";
+    //                 echo '<br>';                   
+    //                 echo "--------------------------------------------------------------------------------------------------------------------------------------------";                
+    //                 echo '<br>';                          
+    //             }
+    //         }
+    //         $count++;
+            
+    //     }    
+    //     fclose($handle);
+    // }
 ?>
