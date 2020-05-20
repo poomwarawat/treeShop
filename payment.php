@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    include "./conn.php";
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -30,6 +33,7 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
+    <script src="./payment.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -63,13 +67,13 @@
           <img src="img/payment.png" class="w-25" alt="" />
         </div>
         <div class="pt-4" style="text-align: left; width: 70%; margin: auto;">
-          <form action="" method="POST">
+          <form action="./paymentdatabase.php" method="POST">
             <div class="row">
               <div class="col-sm-8 col-12">
                 <p>Username</p>
                 <input
                   id="username"
-                  name="username"
+                  name="inputusername"
                   class="form-control"
                   placeholder="Enter your username order"
                 />
@@ -82,11 +86,33 @@
               </div>
             </div>
           </form>
-          <form method="POST">
+          <?php
+            $orderId = $_GET['orderId'];
+            $error = $_GET['error'];
+            $upload = $_GET['upload'];
+            $sql = "SELECT * FROM orderProduct WHERE orderID='$orderId'";
+            $result = mysqli_query($conn, $sql);
+            $result_check = mysqli_num_rows($result);
+            if($error){
+                echo '
+                <div class="alert alert-danger w-100 mt-2">
+                ไม่มีรายการสั่งซื้อขณะนี้
+                </div>';
+            }
+            if($upload){
+                echo '
+                <div class="alert alert-success w-100 mt-2">
+                อัพโหลดหลักฐานการชำระเงินเสร็จสิ้น
+                </div>';
+            }
+            if($result_check > 0){
+                while($row = mysqli_fetch_assoc($result)){                       
+          ?>
+          <form action="./checkout.php?orderId=<?php echo $orderId?>" method="POST" enctype="multipart/form-data">
             <p class="mt-2">Order ID</p>
-            <select class="form-control" name="" id="">
+            <select disabled class="form-control" id="selectorder">              
               <option value=""
-                >---------- กรุณาเลือกรายการสินค้า ----------</option
+                >Order ID : <?php echo $row['orderID']?> ราคา : <?php echo $row['totalPrice']?> บาท</option
               >
             </select>
             <div>
@@ -130,9 +156,9 @@
               </div>
               <div class="row pt-2">
                 <div class="col-7">
-                  <input
+                  <input                    
                     disabled
-                    placeholder="4,928.00 THB"
+                    placeholder="<?php echo $row['totalPrice']?> THB"
                     class="form-control"
                     type="text"
                   />
@@ -140,11 +166,9 @@
                 <div class="col-5">
                   <input
                     disabled
-                    placeholder="22/04/42"
+                    id="date"                    
                     class="form-control"
-                    type="text"
-                    name=""
-                    id=""
+                    type="text"                
                   />
                 </div>
               </div>
@@ -153,8 +177,11 @@
               <p>Upload file</p>
               <div class="form-group">
                 <input
+                  required
+                  id="uploadslip"
                   disabled
                   type="file"
+                  name="slip"
                   class="form-control-file"
                   id="exampleInputFile"
                   aria-describedby="fileHelp"
@@ -170,6 +197,7 @@
               <div>
                 <p>Name</p>
                 <input
+                  required
                   type="text"
                   id="name"
                   name="name"
@@ -181,6 +209,7 @@
               <div class="mt-3">
                 <p>Phone Number</p>
                 <input
+                  required
                   type="text"
                   id="phone"
                   name="phone"
@@ -192,7 +221,9 @@
               <p>Location</p>
               <div class="form-group">
                 <textarea
+                  required
                   disabled
+                  name="location"
                   class="form-control"
                   rows="5"
                   id="comment"
@@ -210,6 +241,10 @@
               </div>
             </div>
           </form>
+          <?php
+              }
+            }
+          ?>
         </div>
       </div>
     </div>

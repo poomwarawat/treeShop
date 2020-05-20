@@ -57,7 +57,7 @@
             $productCount = 0;
             $itemCount = 0;
             $TotalAllPrice = 0;
-            $sql = "SELECT * FROM cart INNER JOIN product ON cart.productID=product.id WHERE cart.username='$username'";
+            $sql = "SELECT * FROM cart INNER JOIN product ON cart.productID=product.id WHERE cart.username='$username' AND status='cart'";
             $result = mysqli_query($conn, $sql);
             $result_check = mysqli_num_rows($result);
             if($result_check > 0){
@@ -125,7 +125,9 @@
         </form>
       </div>
       <div class="p-2">
-        <button class="btn btn-primary w-100 ml-1">สั่งซื้อ</button>
+        <form action="./orderProduct.php?totalPrice=<?php echo $TotalAllPrice?>" method="POST">
+            <button type="submit" class="btn btn-primary w-100 ml-1">สั่งซื้อ</button>
+        </form>
       </div>
     </div>
   </body>

@@ -6,6 +6,7 @@ function Pageload() {
 var count = 0;
 function Calculate() {
   const Display = document.getElementById("totalnumber");
+
   Display.innerHTML = count;
   const Minus = document.getElementById("minusbutton");
   const Plus = document.getElementById("plusbutton");

@@ -7,7 +7,7 @@
     $price = $_GET['price'];
     $totalPrice =  $total *  $price;
     
-    $sql = "INSERT INTO cart (username, productID, total, totalPrice) VALUES ('$username', '$productID', $total, $totalPrice)";
+    $sql = "INSERT INTO cart (username, productID, total, totalPrice, status) VALUES ('$username', '$productID', $total, $totalPrice, 'cart')";
     if(mysqli_query($conn, $sql)){
         header("Location: ./product.php?id=$productID&addcart=1");
         exit;
